@@ -14,11 +14,6 @@ Hooker::event('userLogInAttempt', array('x' => $x));
 // Console/logs
 Hooker::consolePrint();
 
-// Just adding
-// some dummy
-// code
-echo 'hey';
-
 //#########################################
 // Clean/garbage collect Hooker
 Hooker::collectGarbage();
