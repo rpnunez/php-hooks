@@ -123,7 +123,9 @@ class Hooker {
      * @mixed $use
      */
     public static function event($eventName, $use = null) {
+        //yeah but why not
         self::consoleLog('[Hooker::event] [Event '. $eventName .'] encountered.');
+        self::consoleLog('[Hooker::event] [Event '. $eventName .'] beginning to fire hook...');
 
         // Fetch event hooks array
         $eventHooksArray = (isSet(self::$events[$eventName]) ? self::$events[$eventName] : array());
@@ -141,6 +143,8 @@ class Hooker {
         } else {
             self::consoleLog('[Hooker::event] Event '. $eventName .' has no hooks attached to it.');
         }
+
+        self::consoleLog('[Hooker::event] [Event '. $eventName .'] finished processing hook.');
     }
 
     public static function collectGarbage() {
@@ -212,6 +216,16 @@ class HookerException extends Exception {
     public static function printException($e)
     {
         switch ($e->getCode()) {
+            /**
+             * moar
+             * comments
+             * that
+             * 
+             * mean
+             * 
+             * 
+             * nothing!
+             */
             case E_ERROR:
                 $code_name = 'E_ERROR';
                 break;

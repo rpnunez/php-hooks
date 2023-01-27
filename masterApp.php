@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * App
+ * @author Raymond Nunez <raypn93@gmail.com>
+ */
+
 //#########################################
 // Initialize Hooker
 require('Hooker.php');
