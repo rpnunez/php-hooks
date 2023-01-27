@@ -91,6 +91,9 @@ class Hooker {
 
                             // Bind current hook to designated event
                             self::bind($eventName, array($hookFilePath, $hookObjectName));
+
+                            // a comment
+                            // another comment
                         }
                     }
                 }
@@ -120,7 +123,9 @@ class Hooker {
      * @mixed $use
      */
     public static function event($eventName, $use = null) {
+        //yeah but why not
         self::consoleLog('[Hooker::event] [Event '. $eventName .'] encountered.');
+        self::consoleLog('[Hooker::event] [Event '. $eventName .'] beginning to fire hook...');
 
         // Fetch event hooks array
         $eventHooksArray = (isSet(self::$events[$eventName]) ? self::$events[$eventName] : array());
@@ -138,11 +143,16 @@ class Hooker {
         } else {
             self::consoleLog('[Hooker::event] Event '. $eventName .' has no hooks attached to it.');
         }
+
+        self::consoleLog('[Hooker::event] [Event '. $eventName .'] finished processing hook.');
     }
 
     public static function collectGarbage() {
         // Clean up unneeded things, etc...
     }
+
+    // much comment
+    //much wow
 
     /**
      * Cache related functions
@@ -168,6 +178,24 @@ class Hooker {
         echo '<strong>Hooker Console</strong> <br />';
         echo '<pre>'. print_r(self::$console, true) .'</pre>';
         echo '</p>';
+
+        /**
+         * qefq
+         * fqsdf
+         * asdf
+         * sdf
+         * sdaf
+         * sd
+         * fds
+         * fa
+         * sd
+         * fasdf
+         * dasd
+         * fa
+         * sf
+         * as
+         * fsda
+         */
     }
 }
 
@@ -188,6 +216,16 @@ class HookerException extends Exception {
     public static function printException($e)
     {
         switch ($e->getCode()) {
+            /**
+             * moar
+             * comments
+             * that
+             * 
+             * mean
+             * 
+             * 
+             * nothing!
+             */
             case E_ERROR:
                 $code_name = 'E_ERROR';
                 break;
@@ -244,6 +282,11 @@ class HookerException extends Exception {
 
     /**
      * handleException
+     * 
+     * 
+     * 
+     * 
+     * 
      *
      * @access	public
      */

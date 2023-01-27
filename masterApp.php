@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * App
+ * @author Raymond Nunez <raypn93@gmail.com>
+ */
+
 //#########################################
 // Initialize Hooker
 require('Hooker.php');
@@ -13,6 +18,21 @@ Hooker::event('userLogInAttempt', array('x' => $x));
 
 // Console/logs
 Hooker::consolePrint();
+
+/**
+ * d
+ * d
+ * d
+ * dde
+ * e
+ * 
+ * ee
+ * 
+ */
+
+echo '<p>hello world</p>';
+
+echo "<p>yeah man</p>";
 
 // Just adding
 // some dummy
