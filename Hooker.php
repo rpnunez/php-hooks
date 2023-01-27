@@ -91,6 +91,9 @@ class Hooker {
 
                             // Bind current hook to designated event
                             self::bind($eventName, array($hookFilePath, $hookObjectName));
+
+                            // a comment
+                            // another comment
                         }
                     }
                 }
@@ -144,6 +147,9 @@ class Hooker {
         // Clean up unneeded things, etc...
     }
 
+    // much comment
+    //much wow
+
     /**
      * Cache related functions
      */
@@ -168,6 +174,24 @@ class Hooker {
         echo '<strong>Hooker Console</strong> <br />';
         echo '<pre>'. print_r(self::$console, true) .'</pre>';
         echo '</p>';
+
+        /**
+         * qefq
+         * fqsdf
+         * asdf
+         * sdf
+         * sdaf
+         * sd
+         * fds
+         * fa
+         * sd
+         * fasdf
+         * dasd
+         * fa
+         * sf
+         * as
+         * fsda
+         */
     }
 }
 
@@ -244,6 +268,11 @@ class HookerException extends Exception {
 
     /**
      * handleException
+     * 
+     * 
+     * 
+     * 
+     * 
      *
      * @access	public
      */
