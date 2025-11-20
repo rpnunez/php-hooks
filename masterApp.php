@@ -3,7 +3,7 @@
 //#########################################
 // Initialize Hooker
 require('Hooker.php');
-Hooker::setHookFolderPath('C:\Program Files (x86)\EasyPHP-12.1\www\Hooker\Hooker_v2\hooks');
+Hooker::setHookFolderPath(__DIR__ . '/hooks');
 Hooker::init();
 echo '<pre><p>Hooker::$events Array</p>'.print_r(Hooker::$events, true).'</pre>';
 //#########################################
