@@ -126,14 +126,50 @@ class Hooker {
         $eventHooksArray = (isSet(self::$events[$eventName]) ? self::$events[$eventName] : array());
 
         if (sizeOf($eventHooksArray) > 0) {
-            // Execute all hooks
-            foreach ($eventHooksArray as $hookArray) {
-                require_once $hookArray[0];
-                $hook = new $hookArray[1];
-                call_user_func(array($hook, 'execute'), $use);
-                //$hook->execute($use);
+            $hooksToExecute = array();
 
-                self::consoleLog('[Hooker::event] [Event '. $eventName .'] Hook '. $hookArray[1] .' executed.');
+            // Prepare and sort hooks
+            foreach ($eventHooksArray as $hookArray) {
+                if (file_exists($hookArray[0])) {
+                    require_once $hookArray[0];
+                }
+
+                $className = $hookArray[1];
+                $priority = 50; // Default priority
+
+                if (class_exists($className)) {
+                    $vars = get_class_vars($className);
+                    if (isset($vars['priority'])) {
+                        $priority = $vars['priority'];
+                    }
+                }
+
+                $hooksToExecute[] = array(
+                    'hookArray' => $hookArray,
+                    'priority' => $priority
+                );
+            }
+
+            // Sort by priority (ascending)
+            usort($hooksToExecute, function($a, $b) {
+                if ($a['priority'] == $b['priority']) {
+                    return 0;
+                }
+                return ($a['priority'] < $b['priority']) ? -1 : 1;
+            });
+
+            // Execute all hooks in order
+            foreach ($hooksToExecute as $item) {
+                $hookArray = $item['hookArray'];
+                $className = $hookArray[1];
+
+                if (class_exists($className)) {
+                    $hook = new $className;
+                    call_user_func(array($hook, 'execute'), $use);
+                    //$hook->execute($use);
+
+                    self::consoleLog('[Hooker::event] [Event '. $eventName .'] Hook '. $className .' executed.');
+                }
             }
         } else {
             self::consoleLog('[Hooker::event] Event '. $eventName .' has no hooks attached to it.');
