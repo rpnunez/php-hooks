@@ -35,24 +35,24 @@ class Hooker {
      * );
      * @var array
      */
-    public static $events = array();
+    public static $events = [];
 
     /**
      * Contains all logged messages throughout Hooker execution.
      * @var array
      */
-    public static $console = array();
+    public static $console = [];
 
     /**
      * Hooker settings and configuration.
      * @var array
      */
-    public static $config = array(
+    public static $config = [
         'hookerEnabled' => true, // Set to false to disable Hooker/to not execute any hooks
         'hookFolderPath' => '', // Path to hooks folder
         'cacheHooks' => true, // If Hook->enableCache is true, Hooker will cache the results and display
         // the cache rather than executing the hook again.
-    );
+    ];
 
     /**
      * @param $path
@@ -67,30 +67,30 @@ class Hooker {
     }
 
     private function getConfigKey($configKey) {
-        if (isSet($this->config[$configKey])) {
-            $this->config[$configKey];
-        } else {
-            throw new HookerException('[Hooker::getConfigKey] Config key '. $configKey .' does not exist.');
+        if (isset($this->config[$configKey])) {
+            return $this->config[$configKey];
         }
+
+        throw new HookerException('[Hooker::getConfigKey] Config key '. $configKey .' does not exist.');
     }
 
     public static function init() {
         // Loop through hooks folder
         foreach (new DirectoryIterator(self::$config['hookFolderPath']) as $item) {
-            if ($item->isDot() == false) {
+            if (!$item->isDot()) {
                 // Folders within the hooks folder are Event Folders
-                if ($item->isDir() == true) {
+                if ($item->isDir()) {
                     $eventName = $item->getFileName();
                     $eventHooksPath = $item->getPathName();
 
                     // Files within the Event Folders are Hooks
                     foreach (new DirectoryIterator($eventHooksPath) as $hookFile) {
-                        if ($hookFile->isDot() == false) {
+                        if (!$hookFile->isDot()) {
                             $hookFilePath = $hookFile->getPathName();
                             $hookObjectName = $hookFile->getBaseName('.php');
 
                             // Bind current hook to designated event
-                            self::bind($eventName, array($hookFilePath, $hookObjectName));
+                            self::bind($eventName, [$hookFilePath, $hookObjectName]);
                         }
                     }
                 }
@@ -123,10 +123,10 @@ class Hooker {
         self::consoleLog('[Hooker::event] [Event '. $eventName .'] encountered.');
 
         // Fetch event hooks array
-        $eventHooksArray = (isSet(self::$events[$eventName]) ? self::$events[$eventName] : array());
+        $eventHooksArray = isset(self::$events[$eventName]) ? self::$events[$eventName] : [];
 
-        if (sizeOf($eventHooksArray) > 0) {
-            $hooksToExecute = array();
+        if (count($eventHooksArray) > 0) {
+            $hooksToExecute = [];
 
             // Prepare and sort hooks
             foreach ($eventHooksArray as $hookArray) {
@@ -144,10 +144,10 @@ class Hooker {
                     }
                 }
 
-                $hooksToExecute[] = array(
+                $hooksToExecute[] = [
                     'hookArray' => $hookArray,
                     'priority' => $priority
-                );
+                ];
             }
 
             // Sort by priority (ascending)
@@ -165,7 +165,7 @@ class Hooker {
 
                 if (class_exists($className)) {
                     $hook = new $className;
-                    call_user_func(array($hook, 'execute'), $use);
+                    call_user_func([$hook, 'execute'], $use);
                     //$hook->execute($use);
 
                     self::consoleLog('[Hooker::event] [Event '. $eventName .'] Hook '. $className .' executed.');
